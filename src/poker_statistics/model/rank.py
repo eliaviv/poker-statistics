@@ -43,11 +43,11 @@ VAL_TO_REAL_VALUE = {
 
 
 def build_full_hand_with_straight_flush(cards):
-    chosen_cards = build_full_hand_with_flush(cards)
-    if chosen_cards is None:
+    reduced_cards = _find_all_cards_with_same_shape(cards)
+    if reduced_cards is None:
         return None
 
-    chosen_cards = build_full_hand_with_straight(chosen_cards)
+    chosen_cards = build_full_hand_with_straight(reduced_cards)
     if chosen_cards is None:
         return None
 
@@ -111,6 +111,120 @@ def build_full_hand_with_full_house(cards):
 
 
 def build_full_hand_with_flush(cards):
+    reduced_cards = _find_all_cards_with_same_shape(cards)
+    if reduced_cards is None:
+        return None
+
+    chosen_cards = sorted(reduced_cards, key=lambda card: VAL_TO_REAL_VALUE[card.rank.val][0])[-5:]
+    return chosen_cards
+
+
+def build_full_hand_with_straight(cards):
+    chosen_cards = _find_five_cards_in_a_row(cards, 0)
+    if chosen_cards is not None:
+        return chosen_cards
+
+    chosen_cards = _find_five_cards_in_a_row(cards, 1)
+    if chosen_cards is None:
+        return None
+
+    return chosen_cards
+
+
+def build_full_hand_with_three_of_a_kind(cards):
+    card_vals = [card.rank.val for card in cards]
+    uniques, counts = np.unique(card_vals, return_counts=True)
+
+    if 3 not in counts:
+        return None
+
+    three_of_a_kind_indices = np.where(card_vals == uniques[np.where(counts == 3)[0]])
+    chosen_cards = np.take(cards, three_of_a_kind_indices)
+    reduced_cards = np.delete(cards, three_of_a_kind_indices)
+
+    for i in range(0, 2):
+        high_card_index = _find_high_card_index(reduced_cards)
+        chosen_cards = np.append(chosen_cards, np.take(reduced_cards, high_card_index))
+        reduced_cards = np.delete(reduced_cards, high_card_index)
+
+    return chosen_cards
+
+
+def build_full_hand_with_two_pair(cards):
+    card_vals = [card.rank.val for card in cards]
+    uniques, counts = np.unique(card_vals, return_counts=True)
+    counts_uniques, counts_counts = np.unique(counts, return_counts=True)
+    counts_uniques_dict = dict(zip(counts_uniques, counts_counts))
+
+    if 2 not in counts_uniques_dict:
+        return None
+
+    if counts_uniques_dict[2] < 2:
+        return None
+
+    first_pair_indices = np.where(card_vals == np.array(str(uniques[np.where(counts == 2)[0]][0])))[0]
+    second_pair_indices = np.where(card_vals == np.array(str(uniques[np.where(counts == 2)[0]][1])))[0]
+
+    if counts_uniques_dict[2] == 2:
+        chosen_cards = np.take(cards, first_pair_indices)
+        chosen_cards = np.append(chosen_cards, np.take(cards, second_pair_indices))
+        reduced_cards = np.delete(cards, np.flatnonzero(np.isin(cards, chosen_cards)))
+        chosen_cards = np.append(chosen_cards, np.take(reduced_cards, _find_high_card_index(reduced_cards)))
+        return chosen_cards
+
+    if VAL_TO_REAL_VALUE[card_vals[first_pair_indices[0]]][0] > VAL_TO_REAL_VALUE[card_vals[second_pair_indices[0]]][0]:
+        chosen_cards = np.take(cards, first_pair_indices)
+        reduced_cards = np.delete(cards, first_pair_indices)
+        left_pair = second_pair_indices
+    else:
+        chosen_cards = np.take(cards, second_pair_indices)
+        reduced_cards = np.delete(cards, second_pair_indices)
+        left_pair = first_pair_indices
+
+    third_pair_indices = np.where(card_vals == np.array(str(uniques[np.where(counts == 2)[0]][2])))[0]
+
+    if VAL_TO_REAL_VALUE[card_vals[left_pair[0]]][0] > VAL_TO_REAL_VALUE[card_vals[third_pair_indices[0]]][0]:
+        chosen_cards = np.append(chosen_cards, np.take(cards, left_pair))
+        reduced_cards = np.delete(cards, np.flatnonzero(np.isin(cards, chosen_cards)))
+    else:
+        chosen_cards = np.append(chosen_cards, np.take(cards, third_pair_indices))
+        reduced_cards = np.delete(cards, np.flatnonzero(np.isin(cards, chosen_cards)))
+
+    chosen_cards = np.append(chosen_cards, np.take(reduced_cards, _find_high_card_index(reduced_cards)))
+    return chosen_cards
+
+
+def build_full_hand_with_pair(cards):
+    card_vals = [card.rank.val for card in cards]
+    uniques, counts = np.unique(card_vals, return_counts=True)
+
+    if 2 not in counts:
+        return None
+
+    pair_indices = np.where(card_vals == uniques[np.where(counts == 2)[0]])
+    chosen_cards = np.take(cards, pair_indices)
+    reduced_cards = np.delete(cards, pair_indices)
+
+    for i in range(0, 3):
+        high_card_index = _find_high_card_index(reduced_cards)
+        chosen_cards = np.append(chosen_cards, np.take(reduced_cards, high_card_index))
+        reduced_cards = np.delete(reduced_cards, high_card_index)
+
+    return chosen_cards
+
+
+def build_full_hand_with_high_card(cards):
+    reduced_cards = cards
+    chosen_cards = np.array([])
+    for i in range(0, 5):
+        high_card_index = _find_high_card_index(reduced_cards)
+        chosen_cards = np.append(chosen_cards, np.take(reduced_cards, high_card_index))
+        reduced_cards = np.delete(reduced_cards, high_card_index)
+
+    return chosen_cards
+
+
+def _find_all_cards_with_same_shape(cards):
     card_suits = [card.suit.val for card in cards]
     uniques, counts = np.unique(card_suits, return_counts=True)
     if 5 not in counts and 6 not in counts and 7 not in counts:
@@ -118,77 +232,56 @@ def build_full_hand_with_flush(cards):
 
     flush_indices = np.where(card_suits == uniques[np.where(counts >= 5)[0]])
     reduced_cards = np.take(cards, flush_indices)[0]
+    return reduced_cards
 
-    chosen_cards = sorted(reduced_cards, key=lambda card: VAL_TO_REAL_VALUE[card.rank.val][0])[-5:]
+
+def _find_five_cards_in_a_row(cards, value_index):
+    sorted_cards = sorted(cards, key=lambda card: VAL_TO_REAL_VALUE[card.rank.val][value_index])
+    sorted_card_real_values = [VAL_TO_REAL_VALUE[card.rank.val][value_index] for card in sorted_cards]
+    unique_sorted_card_real_values, unique_indices = np.unique(sorted_card_real_values, return_index=True)
+    reduced_sorted_cards = np.take(sorted_cards, unique_indices)
+
+    at_least_five_ones_in_a_row_indices = _find_at_least_five_ones_in_a_row(unique_sorted_card_real_values)
+    if at_least_five_ones_in_a_row_indices is None:
+        return None
+
+    chosen_cards = np.take(reduced_sorted_cards, at_least_five_ones_in_a_row_indices)
     return chosen_cards
 
 
-def build_full_hand_with_straight(cards):
-    for i in range(0, 1):
-        sorted_cards = sorted(cards, key=lambda card: VAL_TO_REAL_VALUE[card.rank.val][0])
-        sorted_card_real_values = [VAL_TO_REAL_VALUE[card.rank.val][i] for card in sorted_cards]
-        sorted_card_real_values_diffs = np.diff(np.sort(sorted_card_real_values))
+def _find_at_least_five_ones_in_a_row(unique_sorted_card_real_values):
+    unique_sorted_card_real_values_diffs = np.diff(unique_sorted_card_real_values)
 
-        if 1 not in sorted_card_real_values_diffs:
-            return None
+    if 1 not in unique_sorted_card_real_values_diffs:
+        return None
 
-        ones_in_a_row, straight_last_index = _find_at_least_five_ones_in_a_row(sorted_card_real_values_diffs)
-        if ones_in_a_row < 4:
-            return None
+    diff_indices = np.array([], dtype=int)
+    for i in range(0, unique_sorted_card_real_values_diffs.size):
+        if unique_sorted_card_real_values_diffs[i] == 1:
+            diff_indices = np.append(diff_indices, i)
+        else:
+            diff_indices = np.array([])
 
-        chosen_cards = sorted_cards[straight_last_index - 4:straight_last_index + 1]
-        return chosen_cards
+        if diff_indices.size >= 4:
+            break
 
+    if diff_indices.size < 4:
+        return None
 
-def build_full_hand_with_three_of_a_kind(cards):
-    for i in range(0, 1):
-        sorted_cards = sorted(cards, key=lambda card: VAL_TO_REAL_VALUE[card.rank.val][0])
-        sorted_card_real_values = [VAL_TO_REAL_VALUE[card.rank.val][i] for card in sorted_cards]
-        sorted_card_real_values_diffs = np.diff(np.sort(sorted_card_real_values))
+    for i in range(diff_indices.size, unique_sorted_card_real_values_diffs.size):
+        if unique_sorted_card_real_values_diffs[i] == 1:
+            diff_indices = np.append(diff_indices, i)
+        else:
+            break
 
-        if 1 not in sorted_card_real_values_diffs:
-            return None
+    indices = set()
+    for i in diff_indices:
+        indices.add(i)
+        indices.add(i + 1)
 
-        ones_in_a_row, straight_last_index = _find_at_least_five_ones_in_a_row(sorted_card_real_values_diffs)
-        if ones_in_a_row < 4:
-            return None
-
-        chosen_cards = sorted_cards[straight_last_index - 4:straight_last_index + 1]
-        return chosen_cards
+    return list(indices)
 
 
 def _find_high_card_index(cards):
     card_real_values = [VAL_TO_REAL_VALUE[card.rank.val][0] for card in cards]
     return np.where(card_real_values == np.max(card_real_values))[0][:1]
-
-
-def _find_at_least_five_ones_in_a_row(sorted_card_real_values_diffs):
-    # sorted_card_real_values_diffs = np.array([1,1,1,1])
-    ones_in_a_row = 0
-    index = 0
-    for i in range(0, sorted_card_real_values_diffs.size):
-        if sorted_card_real_values_diffs[i] == 1:
-            ones_in_a_row += 1
-        else:
-            ones_in_a_row = 0
-
-        if ones_in_a_row >= 4:
-            index = i
-            break
-
-    if ones_in_a_row < 4:
-        return ones_in_a_row, index
-
-    final_index = index
-    for i in range(index + 1, sorted_card_real_values_diffs.size):
-        if sorted_card_real_values_diffs[i] == 1:
-            ones_in_a_row += 1
-            final_index = i
-        else:
-            break
-
-    return ones_in_a_row, final_index + 1
-
-
-
-

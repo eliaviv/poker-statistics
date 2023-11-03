@@ -9,7 +9,7 @@ class FullHand:
         self.rank = None
 
     def build_full_hand(self, all_cards):
-
+        pass
 
 
 def compare_full_hands(full_hand1, full_hand2):

@@ -17,7 +17,7 @@ def calculate_pre_flop_winning_percentage():
     while True:
         deck = list(Card)
         random.shuffle(deck)
-        a = model.rank.build_full_hand_with_straight_flush(deck[:7])
+        a = model.rank.build_full_hand_with_two_pair(deck[:7])
 
     #
     # hands = list(Hand)
@@ -42,7 +42,6 @@ def calculate_pre_flop_winning_percentage():
 
 def _create_random_starting_combo(hands):
     return random.choice(random.choice(hands).to_combos())
-
 
 
 if __name__ == '__main__':
