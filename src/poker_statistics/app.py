@@ -4,8 +4,9 @@ __date__ = "24/10/2023"
 import random
 
 # from src.poker_statistics.model.Player import Player
-import src.poker_statistics.model.full_hand.rank
 from poker import Card
+
+from src.poker_statistics.model.full_hand.full_hand import FullHand
 
 
 def main():
@@ -13,10 +14,34 @@ def main():
 
 
 def calculate_pre_flop_winning_percentage():
+    i = 0
+    deck = list(Card)
     while True:
-        deck = list(Card)
         random.shuffle(deck)
-        a = src.poker_statistics.model.full_hand.full_hand.rank.build_full_hand_with_two_pair(deck[:7])
+        print(deck[:7])
+        a = FullHand(deck[:7])
+        print(f'a rank: {a.builder.rank}')
+        print(f'a cards: {a.builder.cards}')
+
+        random.shuffle(deck)
+        print(deck[:7])
+        b = FullHand(deck[:7])
+        print(f'b rank: {b.builder.rank}')
+        print(f'b cards: {b.builder.cards}')
+
+        result = a.compare(b)
+        if result == 1:
+            print("a wins!")
+        elif result == -1:
+            print("b wins!")
+        else:
+            print("draw!")
+
+        print()
+
+        i += 1
+        print(i)
+
 
     #
     # hands = list(Hand)

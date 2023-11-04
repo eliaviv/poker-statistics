@@ -3,6 +3,6 @@ __date__ = "24/10/2023"
 
 
 class Player:
-    starting_combo = None
-    best_hand = None
-    rank = None
+    def __init__(self):
+        self.starting_combo = None
+        self.full_hand = None

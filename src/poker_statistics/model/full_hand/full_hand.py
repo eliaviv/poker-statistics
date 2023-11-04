@@ -11,32 +11,35 @@ from src.poker_statistics.model.full_hand.builders.StraightFlushBuilder import S
 from src.poker_statistics.model.full_hand.builders.ThreeOfAKindBuilder import ThreeOfAKindBuilder
 from src.poker_statistics.model.full_hand.builders.TwoPairBuilder import TwoPairBuilder
 
-FULL_HAND_BUILDERS = [
-    StraightFlushBuilder(),
-    FourOfAKindBuilder(),
-    FullHouseBuilder(),
-    FlushBuilder(),
-    StraightBuilder(),
-    ThreeOfAKindBuilder(),
-    TwoPairBuilder(),
-    PairBuilder(),
-    HighCardBuilder()
-]
-
 
 class FullHand:
-    def __init__(self):
-        self.cards = None
-        self.rank = None
+    def __init__(self, all_cards):
+        self.builder = self.build_full_hand(all_cards)
 
-    def build_full_hand(self, all_cards):
-        pass
+    @staticmethod
+    def build_full_hand(all_cards):
+        full_hand_builders = [
+            StraightFlushBuilder(),
+            FourOfAKindBuilder(),
+            FullHouseBuilder(),
+            FlushBuilder(),
+            StraightBuilder(),
+            ThreeOfAKindBuilder(),
+            TwoPairBuilder(),
+            PairBuilder(),
+            HighCardBuilder()
+        ]
 
+        for builder in full_hand_builders:
+            builder.build(all_cards)
+            if builder.cards is not None:
+                return builder
 
-def compare_full_hands(full_hand1, full_hand2):
-    if full_hand1.rank > full_hand2.rank:
-        return 1
+    def compare(self, other_full_hand):
+        if self.builder.rank > other_full_hand.builder.rank:
+            return 1
 
-    if full_hand1.rank < full_hand2.rank:
-        return -1
+        if self.builder.rank < other_full_hand.builder.rank:
+            return -1
 
+        return self.builder.compare(other_full_hand.builder.cards)

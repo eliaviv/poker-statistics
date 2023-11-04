@@ -34,12 +34,12 @@ def find_all_cards_with_same_shape(cards):
 
 
 def find_five_cards_in_a_row(cards, value_index):
-    sorted_cards = sorted(cards, key=lambda card: CARD_VAL_TO_REAL_VALUE[card.rank.val][value_index])
-    sorted_card_real_values = [CARD_VAL_TO_REAL_VALUE[card.rank.val][value_index] for card in sorted_cards]
+    sorted_cards = sorted(cards, key=lambda card: get_card_value(card, value_index))
+    sorted_card_real_values = [get_card_value(card, value_index) for card in sorted_cards]
     unique_sorted_card_real_values, unique_indices = np.unique(sorted_card_real_values, return_index=True)
     reduced_sorted_cards = np.take(sorted_cards, unique_indices)
 
-    at_least_five_ones_in_a_row_indices = _find_at_least_five_ones_in_a_row(unique_sorted_card_real_values)
+    at_least_five_ones_in_a_row_indices = find_at_least_five_ones_in_a_row(unique_sorted_card_real_values)
     if at_least_five_ones_in_a_row_indices is None:
         return None
 
@@ -81,5 +81,9 @@ def find_at_least_five_ones_in_a_row(unique_sorted_card_real_values):
 
 
 def find_high_card_index(cards):
-    card_real_values = [CARD_VAL_TO_REAL_VALUE[card.rank.val][0] for card in cards]
+    card_real_values = [get_card_value(card, 0) for card in cards]
     return np.where(card_real_values == np.max(card_real_values))[0][:1]
+
+
+def get_card_value(card, value_index):
+    return CARD_VAL_TO_REAL_VALUE[card.rank.val][value_index]
