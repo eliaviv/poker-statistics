@@ -1,12 +1,11 @@
 __author__ = "Eli Aviv"
 __date__ = "24/10/2023"
-__copyright__ = "Copyright (C) 2023 IXDen (https://www.ixden.com)"
 
 import random
-from poker import Suit, Card, Hand, Combo
 
 # from src.poker_statistics.model.Player import Player
-import model.rank
+import src.poker_statistics.model.full_hand.rank
+from poker import Card
 
 
 def main():
@@ -17,7 +16,7 @@ def calculate_pre_flop_winning_percentage():
     while True:
         deck = list(Card)
         random.shuffle(deck)
-        a = model.rank.build_full_hand_with_two_pair(deck[:7])
+        a = src.poker_statistics.model.full_hand.full_hand.rank.build_full_hand_with_two_pair(deck[:7])
 
     #
     # hands = list(Hand)
