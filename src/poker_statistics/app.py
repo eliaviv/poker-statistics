@@ -4,9 +4,9 @@ __date__ = "24/10/2023"
 import random
 
 # from src.poker_statistics.model.Player import Player
-from poker import Card
+from poker import Card, Hand
 
-from src.poker_statistics.model.full_hand.full_hand import FullHand
+from src.poker_statistics.model.full_hand.full_hand import Player
 
 
 def main():
@@ -15,57 +15,64 @@ def main():
 
 def calculate_pre_flop_winning_percentage():
     i = 0
-    deck = list(Card)
-    while True:
-        random.shuffle(deck)
-        print(deck[:7])
-        a = FullHand(deck[:7])
-        print(f'a rank: {a.builder.rank}')
-        print(f'a cards: {a.builder.cards}')
+    hands = list(Hand)
 
+    while True:
+        i += 1
+        print(f'Game number #{i}\n')
+
+        deck = list(Card)
         random.shuffle(deck)
-        print(deck[:7])
-        b = FullHand(deck[:7])
-        print(f'b rank: {b.builder.rank}')
-        print(f'b cards: {b.builder.cards}')
+
+        a = Player()
+        b = Player()
+
+        stating_combo1 = _create_random_starting_combo(hands)
+        a.deal_starting_hand(stating_combo1)
+        print(f'A starting hand: {stating_combo1}\n')
+
+        stating_combo2 = _create_random_starting_combo(hands)
+        b.deal_starting_hand(stating_combo2)
+        print(f'B starting hand: {stating_combo2}\n')
+
+        flop = [deck.pop() for __ in range(3)]
+        print(f'Flop: {flop}\n')
+
+        a.build_full_hand(flop)
+        b.build_full_hand(flop)
+
+        turn = [deck.pop()]
+        print(f'Turn: {turn}\n')
+
+        a.build_full_hand(turn)
+        b.build_full_hand(turn)
+
+        river = [deck.pop()]
+        print(f'River: {river}\n')
+
+        a.build_full_hand(river)
+        b.build_full_hand(river)
+
+        print(f'A rank: {a.full_hand.rank}\n')
+        print(f'A cards: {a.full_hand.cards}\n')
+
+        print(f'B rank: {b.full_hand.rank}\n')
+        print(f'B cards: {b.full_hand.cards}\n')
 
         result = a.compare(b)
         if result == 1:
-            print("a wins!")
+            print("A WINS!\n")
         elif result == -1:
-            print("b wins!")
+            print("B WINS!\n")
         else:
-            print("draw!")
+            print("DRAW!\n")
 
-        print()
-
-        i += 1
-        print(i)
-
-
-    #
-    # hands = list(Hand)
-    # stating_combo1 = _create_random_starting_combo(hands)
-    # player1 = Player()
-    # player1.starting_hand = stating_combo1
-    #
-    # stating_combo2 = _create_random_starting_combo(hands)
-    # player2 = Player()
-    # player2.starting_hand = stating_combo2
-    #
-    # combo = Combo("AdAs")
-    #
-    # flop = [deck.pop() for __ in range(3)]
-    # turn = deck.pop()
-    # river = deck.pop()
-    #
-    # print(Hand('AA'))
-    #
-    # print('eli')
+        print(f"Game Finished #{i}\n")
 
 
 def _create_random_starting_combo(hands):
-    return random.choice(random.choice(hands).to_combos())
+    combo = random.choice(random.choice(hands).to_combos())
+    return [combo.first, combo.second]
 
 
 if __name__ == '__main__':

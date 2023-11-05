@@ -4,11 +4,11 @@ __date__ = "04/11/2023"
 import numpy as np
 
 from src.poker_statistics.model.full_hand.Rank import Rank
-from src.poker_statistics.model.full_hand.builders.FullHandBuilder import FullHandBuilder
-from src.poker_statistics.model.full_hand.builders.builder_utils import CARD_VAL_TO_REAL_VALUE, get_card_value
+from src.poker_statistics.model.full_hand.builders.FullHand import FullHand
+from src.poker_statistics.model.full_hand.builders.full_hand_utils import CARD_VAL_TO_REAL_VALUE, get_card_value
 
 
-class FullHouseBuilder(FullHandBuilder):
+class FullHouseFullHand(FullHand):
     def build(self, cards):
         card_vals = [card.rank.val for card in cards]
         uniques, counts = np.unique(card_vals, return_counts=True)
@@ -31,7 +31,7 @@ class FullHouseBuilder(FullHandBuilder):
                 reduced_cards = np.delete(cards, second_three_of_a_kind_indices)
 
             chosen_cards = np.append(chosen_cards, reduced_cards[:2])
-            self.cards = chosen_cards
+            self.cards = list(chosen_cards)
             return
 
         if 2 not in counts_uniques_dict:
@@ -49,13 +49,13 @@ class FullHouseBuilder(FullHandBuilder):
                 chosen_cards = np.append(chosen_cards, np.take(cards, first_pair_indices))
             else:
                 chosen_cards = np.append(chosen_cards, np.take(cards, second_pair_indices))
-            self.cards = chosen_cards
+            self.cards = list(chosen_cards)
             return
 
         pair_indices = np.where(card_vals == uniques[np.where(counts == 2)[0]])
         chosen_cards = np.append(chosen_cards, np.take(cards, pair_indices))
 
-        self.cards = chosen_cards
+        self.cards = list(chosen_cards)
 
     def rank(self):
         return Rank.FULL_HOUSE

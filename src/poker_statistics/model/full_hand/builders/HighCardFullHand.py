@@ -4,24 +4,23 @@ __date__ = "04/11/2023"
 import numpy as np
 
 from src.poker_statistics.model.full_hand.Rank import Rank
-from src.poker_statistics.model.full_hand.builders.FullHandBuilder import FullHandBuilder
-from src.poker_statistics.model.full_hand.builders.builder_utils import find_all_cards_with_same_shape, \
-    CARD_VAL_TO_REAL_VALUE, find_high_card_index, get_card_value
+from src.poker_statistics.model.full_hand.builders.FullHand import FullHand
+from src.poker_statistics.model.full_hand.builders.full_hand_utils import find_high_card_index, get_card_value
 
 
-class FlushBuilder(FullHandBuilder):
+class HighCardFullHand(FullHand):
     def build(self, cards):
-        reduced_cards = find_all_cards_with_same_shape(cards)
-        if reduced_cards is None:
-            self.cards = None
-            return
+        reduced_cards = cards
+        chosen_cards = np.array([])
+        for i in range(0, 5):
+            high_card_index = find_high_card_index(reduced_cards)
+            chosen_cards = np.append(chosen_cards, np.take(reduced_cards, high_card_index))
+            reduced_cards = np.delete(reduced_cards, high_card_index)
 
-        chosen_cards = sorted(reduced_cards, key=lambda card: CARD_VAL_TO_REAL_VALUE[card.rank.val][0])[-5:]
-
-        self.cards = chosen_cards
+        self.cards = list(chosen_cards)
 
     def rank(self):
-        return Rank.FLUSH
+        return Rank.HIGH_CARD
 
     def compare(self, other_cards):
         this_reduced_cards = self.cards

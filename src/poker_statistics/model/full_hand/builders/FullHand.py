@@ -3,10 +3,10 @@ __date__ = "04/11/2023"
 
 import abc
 
-from src.poker_statistics.model.full_hand.builders.builder_utils import find_high_card_index
+from src.poker_statistics.model.full_hand.builders.full_hand_utils import find_high_card_index
 
 
-class FullHandBuilder(metaclass=abc.ABCMeta):
+class FullHand(metaclass=abc.ABCMeta):
     def __init__(self):
         self.rank = self.rank()
         self.cards = None
