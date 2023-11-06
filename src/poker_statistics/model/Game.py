@@ -27,7 +27,7 @@ class Game:
         self.deal_rest_of_cards()
         winners = self.determine_winner()
 
-        print(f'Winners: {winners}')
+        print(f'Winners: {winners}\n')
 
         self.prepare_for_next_round()
 
@@ -84,7 +84,7 @@ class Game:
     def prepare_for_next_round(self):
         self.small_blind_position = (self.small_blind_position + 1) % len(self.players)
         for player in self.players:
-            player.clear_starting_hand()
+            player.clear()
 
     def set_positions(self):
         next_player_index = self.small_blind_position

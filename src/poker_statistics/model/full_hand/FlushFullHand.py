@@ -3,8 +3,8 @@ __date__ = "04/11/2023"
 
 import numpy as np
 
-from src.poker_statistics.model.full_hand.Rank import Rank
 from src.poker_statistics.model.full_hand.FullHand import FullHand
+from src.poker_statistics.model.full_hand.FullHandRank import FullHandRank
 from src.poker_statistics.model.full_hand.full_hand_utils import find_all_cards_with_same_shape, \
     CARD_VAL_TO_REAL_VALUE, find_high_card_index, get_card_value
 
@@ -21,7 +21,7 @@ class FlushFullHand(FullHand):
         self.cards = list(chosen_cards)
 
     def rank(self):
-        return Rank.FLUSH
+        return FullHandRank.FLUSH
 
     def compare(self, other_cards):
         this_reduced_cards = self.cards

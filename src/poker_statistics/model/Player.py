@@ -6,8 +6,8 @@ from src.poker_statistics.model.full_hand.FourOfAKindFullHand import FourOfAKind
 from src.poker_statistics.model.full_hand.FullHouseFullHand import FullHouseFullHand
 from src.poker_statistics.model.full_hand.HighCardFullHand import HighCardFullHand
 from src.poker_statistics.model.full_hand.PairFullHand import PairFullHand
-from src.poker_statistics.model.full_hand.StraightFullHand import StraightFullHand
 from src.poker_statistics.model.full_hand.StraightFlushFullHand import StraightFlushFullHand
+from src.poker_statistics.model.full_hand.StraightFullHand import StraightFullHand
 from src.poker_statistics.model.full_hand.ThreeOfAKindFullHand import ThreeOfAKindFullHand
 from src.poker_statistics.model.full_hand.TwoPairFullHand import TwoPairFullHand
 
@@ -22,8 +22,10 @@ class Player:
     def deal_starting_hand(self, cards):
         self.starting_hand.extend(cards)
 
-    def clear_starting_hand(self):
+    def clear(self):
         self.starting_hand = []
+        self.position = None
+        self.full_hand = None
 
     def build_full_hand(self, cards):
         all_cards = self.starting_hand + cards

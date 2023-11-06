@@ -6,7 +6,9 @@ from src.poker_statistics.model.Game import Game
 
 def main():
     game = Game(9)
-    game.start()
+
+    while True:
+        game.start()
 
 
 if __name__ == '__main__':

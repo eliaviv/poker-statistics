@@ -6,7 +6,7 @@ from functools import total_ordering
 
 
 @total_ordering
-class Rank(Enum):
+class FullHandRank(Enum):
     HIGH_CARD = 0
     PAIR = 1
     TWO_PAIR = 2

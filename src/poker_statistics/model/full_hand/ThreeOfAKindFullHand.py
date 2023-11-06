@@ -3,8 +3,8 @@ __date__ = "04/11/2023"
 
 import numpy as np
 
-from src.poker_statistics.model.full_hand.Rank import Rank
 from src.poker_statistics.model.full_hand.FullHand import FullHand
+from src.poker_statistics.model.full_hand.FullHandRank import FullHandRank
 from src.poker_statistics.model.full_hand.full_hand_utils import find_high_card_index, get_card_value
 
 
@@ -29,7 +29,7 @@ class ThreeOfAKindFullHand(FullHand):
         self.cards = list(chosen_cards)
 
     def rank(self):
-        return Rank.THREE_OF_A_KIND
+        return FullHandRank.THREE_OF_A_KIND
 
     def compare(self, other_cards):
         this_card_vals = [card.rank.val for card in self.cards]
