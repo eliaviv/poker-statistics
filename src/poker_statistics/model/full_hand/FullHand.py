@@ -3,8 +3,6 @@ __date__ = "04/11/2023"
 
 import abc
 
-from src.poker_statistics.model.full_hand.builders.full_hand_utils import find_high_card_index
-
 
 class FullHand(metaclass=abc.ABCMeta):
     def __init__(self):
@@ -22,3 +20,9 @@ class FullHand(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def compare(self, other_cards):
         pass
+
+    def __repr__(self):
+        return f'{self.rank} {self.cards}'
+
+    def __str__(self):
+        return f'{self.rank} {self.cards}'

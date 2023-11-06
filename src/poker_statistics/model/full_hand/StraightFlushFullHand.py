@@ -2,13 +2,18 @@ __author__ = "Eli Aviv"
 __date__ = "04/11/2023"
 
 from src.poker_statistics.model.full_hand.Rank import Rank
-from src.poker_statistics.model.full_hand.builders.FullHand import FullHand
-from src.poker_statistics.model.full_hand.builders.full_hand_utils import find_five_cards_in_a_row, find_high_card_index, \
-    get_card_value
+from src.poker_statistics.model.full_hand.FullHand import FullHand
+from src.poker_statistics.model.full_hand.full_hand_utils import find_all_cards_with_same_shape, \
+    find_five_cards_in_a_row, find_high_card_index, get_card_value
 
 
-class StraightFullHand(FullHand):
+class StraightFlushFullHand(FullHand):
     def build(self, cards):
+        reduced_cards = find_all_cards_with_same_shape(cards)
+        if reduced_cards is None:
+            self.cards = None
+            return
+
         chosen_cards = find_five_cards_in_a_row(cards, 0)
         if chosen_cards is not None:
             self.cards = list(chosen_cards)
@@ -22,7 +27,7 @@ class StraightFullHand(FullHand):
         self.cards = list(chosen_cards)
 
     def rank(self):
-        return Rank.STRAIGHT
+        return Rank.STRAIGHT_FLUSH
 
     def compare(self, other_cards):
         this_high_card_index = find_high_card_index(self.cards)
