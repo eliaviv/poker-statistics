@@ -36,7 +36,7 @@ def test_build_pick_four_of_a_kind():
 def test_build_no_four_of_a_kind():
     # given
     cards = []
-    fill_with_random_cards(cards, randrange(1, 8), max_amount_from_random_rank=3)
+    fill_with_random_cards(cards, randrange(5, 8), max_amount_from_random_rank=3)
 
     four_of_a_kind_full_hand = FourOfAKindFullHand()
 

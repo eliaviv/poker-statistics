@@ -4,7 +4,6 @@ __date__ = "06/11/2023"
 from random import randrange
 
 import numpy as np
-import pytest
 from poker import Rank
 
 from src.poker_statistics.model.full_hand.FullHandRank import FullHandRank
@@ -99,10 +98,8 @@ def test_build_pick_higher_full_house_2():
 
 def test_build_no_full_house():
     # given
-    num_of_cards = 5 + randrange(3)
-
     cards = []
-    fill_with_random_cards(cards, num_of_cards, max_amount_from_random_rank=randrange(1, 3))
+    fill_with_random_cards(cards, randrange(5, 8), max_amount_from_random_rank=randrange(1, 3))
 
     full_house_full_hand = FullHouseFullHand()
 

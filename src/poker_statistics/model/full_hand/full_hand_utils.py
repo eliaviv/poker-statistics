@@ -5,7 +5,6 @@ import numpy as np
 
 
 CARD_VAL_TO_REAL_VALUE = {
-    '1': (1, 1),
     '2': (2, 2),
     '3': (3, 3),
     '4': (4, 4),
@@ -19,6 +18,23 @@ CARD_VAL_TO_REAL_VALUE = {
     'Q': (12, 12),
     'K': (13, 13),
     'A': (14, 1)
+}
+
+CARD_REAL_VALUE_TO_VAL = {
+    1: 'A',
+    2: '2',
+    3: '3',
+    4: '4',
+    5: '5',
+    6: '6',
+    7: '7',
+    8: '8',
+    9: '9',
+    10: 'T',
+    11: 'J',
+    12: 'Q',
+    13: 'K',
+    14: 'A'
 }
 
 
@@ -43,7 +59,7 @@ def find_five_cards_in_a_row(cards, value_index):
     if at_least_five_ones_in_a_row_indices is None:
         return None
 
-    chosen_cards = np.take(reduced_sorted_cards, at_least_five_ones_in_a_row_indices)
+    chosen_cards = np.take(reduced_sorted_cards, at_least_five_ones_in_a_row_indices)[-5:]
     return chosen_cards
 
 
@@ -80,10 +96,18 @@ def find_at_least_five_ones_in_a_row(unique_sorted_card_real_values):
     return list(indices)
 
 
-def find_high_card_index(cards):
-    card_real_values = [get_card_value(card, 0) for card in cards]
+def find_high_card_index(cards, value_index=0):
+    card_real_values = [get_card_value(card, value_index) for card in cards]
     return np.where(card_real_values == np.max(card_real_values))[0][:1]
 
 
 def get_card_value(card, value_index):
     return CARD_VAL_TO_REAL_VALUE[card.rank.val][value_index]
+
+
+def get_rank_val_value(rank, value_index):
+    return CARD_VAL_TO_REAL_VALUE[rank.val][value_index]
+
+
+def get_rank_value_val(value):
+    return CARD_REAL_VALUE_TO_VAL[value]

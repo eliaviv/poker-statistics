@@ -13,25 +13,24 @@ class Game:
         self.deck = None
         self.players = self.create_players(num_of_players)
         self.small_blind_position = 0
-        self.game_number = 1
+        self.game_number = 0
 
     def start(self):
-        print(f'Game #{self.game_number} Started')
+        self.game_number += 1
+        # print(f'Game #{self.game_number} Started')
 
         self.set_positions()
 
         self.deck = list(Card)
         random.shuffle(self.deck)
 
-        self.deal_starting_cards()
-        self.deal_rest_of_cards()
-        winners = self.determine_winner()
-
-        print(f'Winners: {winners}\n')
-
-        self.prepare_for_next_round()
-
-        self.game_number += 1
+        # self.deal_starting_cards()
+        # self.deal_rest_of_cards()
+        # winners = self.determine_winners()
+        #
+        # print(f'Winners: {winners}\n')
+        #
+        # self.prepare_for_next_round()
 
     def deal_starting_cards(self):
         for i in range(2):
@@ -41,35 +40,35 @@ class Game:
                 self.players[next_player_index % len(self.players)].deal_starting_hand(starting_card)
                 next_player_index += 1
 
-        for player in self.players:
-            print(f'{player.name} starting hand: {player.starting_hand}')
-        print()
+        # for player in self.players:
+        #     print(f'{player.name} starting hand: {player.starting_hand}')
+        # print()
 
     def deal_rest_of_cards(self):
         all_cards = []
 
         self.deck.pop()
         flop = [self.deck.pop() for __ in range(3)]
-        print(f'Flop: {flop}')
+        # print(f'Flop: {flop}')
         all_cards.extend(flop)
         for player in self.players:
             player.build_full_hand(all_cards)
 
         self.deck.pop()
         turn = [self.deck.pop()]
-        print(f'Turn: {turn}')
+        # print(f'Turn: {turn}')
         all_cards.extend(turn)
         for player in self.players:
             player.build_full_hand(all_cards)
 
         self.deck.pop()
         river = [self.deck.pop()]
-        print(f'River: {river}\n')
+        # print(f'River: {river}\n')
         all_cards.extend(river)
         for player in self.players:
             player.build_full_hand(all_cards)
 
-    def determine_winner(self):
+    def determine_winners(self):
         players_with_best_hand = [self.players[0]]
         for i in range(1, len(self.players)):
             result = players_with_best_hand[0].compare(self.players[i])
