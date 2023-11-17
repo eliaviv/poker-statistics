@@ -6,6 +6,7 @@ import random
 from poker import Card
 
 from src.poker_statistics.model.Player import Player
+from src.poker_statistics.model.positions import NUM_OF_PLAYERS_TO_POSITIONS
 
 
 class Game:
@@ -95,20 +96,3 @@ class Game:
     @staticmethod
     def create_players(num_of_players):
         return [Player(f'Player{i}') for i in range(1, num_of_players + 1)]
-
-
-POSITIONS_9_PLAYERS = [
-    'SMALL BLIND',
-    'BIG BLIND',
-    'UNDER THE GUN',
-    'UNDER THE GUN + 1',
-    'MIDDLE POSITION',
-    'LOJACK',
-    'HIJACK',
-    'CUT OFF',
-    'BUTTON',
-]
-
-NUM_OF_PLAYERS_TO_POSITIONS = {
-    9: POSITIONS_9_PLAYERS
-}

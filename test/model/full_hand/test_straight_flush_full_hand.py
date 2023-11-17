@@ -3,7 +3,6 @@ __date__ = "06/11/2023"
 
 from random import randrange
 
-import pytest
 from poker import Rank, Suit
 
 from src.poker_statistics.model.full_hand.FullHandRank import FullHandRank

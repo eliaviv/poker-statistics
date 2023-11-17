@@ -1,0 +1,82 @@
+__author__ = "Eli Aviv"
+__date__ = "15/11/2023"
+
+
+POSITIONS_9_PLAYERS = [
+    'SMALL BLIND',
+    'BIG BLIND',
+    'UNDER THE GUN',
+    'UNDER THE GUN + 1',
+    'MIDDLE POSITION',
+    'LOJACK',
+    'HIJACK',
+    'CUT OFF',
+    'BUTTON',
+]
+
+POSITIONS_8_PLAYERS = [
+    'SMALL BLIND',
+    'BIG BLIND',
+    'UNDER THE GUN',
+    'UNDER THE GUN + 1',
+    'MIDDLE POSITION',
+    'HIJACK',
+    'CUT OFF',
+    'BUTTON',
+]
+
+POSITIONS_7_PLAYERS = [
+    'SMALL BLIND',
+    'BIG BLIND',
+    'UNDER THE GUN',
+    'UNDER THE GUN + 1',
+    'HIJACK',
+    'CUT OFF',
+    'BUTTON',
+]
+
+POSITIONS_6_PLAYERS = [
+    'SMALL BLIND',
+    'BIG BLIND',
+    'UNDER THE GUN',
+    'UNDER THE GUN + 1',
+    'CUT OFF',
+    'BUTTON',
+]
+
+POSITIONS_5_PLAYERS = [
+    'SMALL BLIND',
+    'BIG BLIND',
+    'UNDER THE GUN',
+    'CUT OFF',
+    'BUTTON',
+]
+
+POSITIONS_4_PLAYERS = [
+    'SMALL BLIND',
+    'BIG BLIND',
+    'UNDER THE GUN',
+    'BUTTON',
+]
+
+POSITIONS_3_PLAYERS = [
+    'SMALL BLIND',
+    'BIG BLIND',
+    'BUTTON',
+]
+
+POSITIONS_2_PLAYERS = [
+    'BIG BLIND',
+    'BUTTON',
+]
+
+NUM_OF_PLAYERS_TO_POSITIONS = {
+    9: POSITIONS_9_PLAYERS,
+    8: POSITIONS_8_PLAYERS,
+    7: POSITIONS_7_PLAYERS,
+    6: POSITIONS_6_PLAYERS,
+    5: POSITIONS_5_PLAYERS,
+    4: POSITIONS_4_PLAYERS,
+    3: POSITIONS_3_PLAYERS,
+    2: POSITIONS_2_PLAYERS
+}
