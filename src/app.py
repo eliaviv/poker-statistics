@@ -12,8 +12,12 @@ MAX_NUM_OF_PLAYERS = 9
 def main():
     logger.init_logger("Poker-Statistics")
 
-    for i in range(MIN_NUM_OF_PLAYERS, MAX_NUM_OF_PLAYERS + 1):
-        logger.log_info(f'Start calculating poker statistics for number of players: {i}')
+    _calculate_pre_flop_statistics()
+
+
+def _calculate_pre_flop_statistics():
+    for i in range(MAX_NUM_OF_PLAYERS, MIN_NUM_OF_PLAYERS - 1, -1):
+        logger.log_info(f'\nStart calculating poker statistics for number of players: {i}\n')
 
         hands_probabilities = calculate_winning_probability_of_starting_cards(i)
 

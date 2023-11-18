@@ -39,3 +39,14 @@ def _fill_matrix(matrix, i, lines):
         matrix[j + i + 1][i] = split_line[1]
 
     _fill_matrix(matrix, i + 1, lines[24 - 2 * i:])
+
+
+def sort_statistics():
+    with open("poker_statistics/tmp_data/statistics.txt", 'r') as f:
+        lines = f.readlines()
+
+    sorted_lines = sorted(lines,
+                          key=lambda line: float(line.split(': ')[1][:-2]))
+
+    with open("poker_statistics/tmp_data/sorted_statistics.txt", 'w') as f:
+        f.writelines(sorted_lines)
