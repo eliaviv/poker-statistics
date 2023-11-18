@@ -5,9 +5,9 @@ from random import randrange
 
 from poker import Suit
 
-from src.poker_statistics.model.full_hand.FlushFullHand import FlushFullHand
-from src.poker_statistics.model.full_hand.FullHandRank import FullHandRank
-from src.poker_statistics.model.full_hand.full_hand_utils import CARD_VAL_TO_REAL_VALUE, get_card_value
+from poker_statistics.model.full_hand.FlushFullHand import FlushFullHand
+from poker_statistics.model.full_hand.FullHandRank import FullHandRank
+from poker_statistics.model.full_hand.full_hand_utils import CARD_VAL_TO_REAL_VALUE, get_card_value
 from test.utils.test_utils import generate_same_suit_cards, fill_with_random_cards
 
 

@@ -5,9 +5,9 @@ from random import randrange
 
 from poker import Rank
 
-from src.poker_statistics.model.full_hand.FullHandRank import FullHandRank
-from src.poker_statistics.model.full_hand.ThreeOfAKindFullHand import ThreeOfAKindFullHand
-from src.poker_statistics.model.full_hand.full_hand_utils import get_card_value, \
+from poker_statistics.model.full_hand.FullHandRank import FullHandRank
+from poker_statistics.model.full_hand.ThreeOfAKindFullHand import ThreeOfAKindFullHand
+from poker_statistics.model.full_hand.full_hand_utils import get_card_value, \
     find_high_card_index
 from test.utils.test_utils import generate_same_rank_cards, fill_with_random_cards, assert_by_high_card
 

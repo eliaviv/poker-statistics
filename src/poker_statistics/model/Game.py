@@ -5,8 +5,8 @@ import random
 
 from poker import Card
 
-from src.poker_statistics.model.Player import Player
-from src.poker_statistics.model.positions import NUM_OF_PLAYERS_TO_POSITIONS
+from poker_statistics.model.Player import Player
+from poker_statistics.model.positions import NUM_OF_PLAYERS_TO_POSITIONS
 
 
 class Game:

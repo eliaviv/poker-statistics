@@ -1,15 +1,15 @@
 __author__ = "Eli Aviv"
 __date__ = "24/10/2023"
 
-from src.poker_statistics.model.full_hand.FlushFullHand import FlushFullHand
-from src.poker_statistics.model.full_hand.FourOfAKindFullHand import FourOfAKindFullHand
-from src.poker_statistics.model.full_hand.FullHouseFullHand import FullHouseFullHand
-from src.poker_statistics.model.full_hand.HighCardFullHand import HighCardFullHand
-from src.poker_statistics.model.full_hand.PairFullHand import PairFullHand
-from src.poker_statistics.model.full_hand.StraightFlushFullHand import StraightFlushFullHand
-from src.poker_statistics.model.full_hand.StraightFullHand import StraightFullHand
-from src.poker_statistics.model.full_hand.ThreeOfAKindFullHand import ThreeOfAKindFullHand
-from src.poker_statistics.model.full_hand.TwoPairFullHand import TwoPairFullHand
+from poker_statistics.model.full_hand.FlushFullHand import FlushFullHand
+from poker_statistics.model.full_hand.FourOfAKindFullHand import FourOfAKindFullHand
+from poker_statistics.model.full_hand.FullHouseFullHand import FullHouseFullHand
+from poker_statistics.model.full_hand.HighCardFullHand import HighCardFullHand
+from poker_statistics.model.full_hand.PairFullHand import PairFullHand
+from poker_statistics.model.full_hand.StraightFlushFullHand import StraightFlushFullHand
+from poker_statistics.model.full_hand.StraightFullHand import StraightFullHand
+from poker_statistics.model.full_hand.ThreeOfAKindFullHand import ThreeOfAKindFullHand
+from poker_statistics.model.full_hand.TwoPairFullHand import TwoPairFullHand
 
 
 class Player:

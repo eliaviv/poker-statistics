@@ -3,9 +3,9 @@ __date__ = "06/11/2023"
 
 from random import randrange
 
-from src.poker_statistics.model.full_hand.FullHandRank import FullHandRank
-from src.poker_statistics.model.full_hand.HighCardFullHand import HighCardFullHand
-from src.poker_statistics.model.full_hand.full_hand_utils import find_high_card_index
+from poker_statistics.model.full_hand.FullHandRank import FullHandRank
+from poker_statistics.model.full_hand.HighCardFullHand import HighCardFullHand
+from poker_statistics.model.full_hand.full_hand_utils import find_high_card_index
 from test.utils.test_utils import fill_with_random_cards, assert_by_high_card
 
 

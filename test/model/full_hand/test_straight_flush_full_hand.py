@@ -5,9 +5,9 @@ from random import randrange
 
 from poker import Rank, Suit
 
-from src.poker_statistics.model.full_hand.FullHandRank import FullHandRank
-from src.poker_statistics.model.full_hand.StraightFlushFullHand import StraightFlushFullHand
-from src.poker_statistics.model.full_hand.full_hand_utils import get_card_value, \
+from poker_statistics.model.full_hand.FullHandRank import FullHandRank
+from poker_statistics.model.full_hand.StraightFlushFullHand import StraightFlushFullHand
+from poker_statistics.model.full_hand.full_hand_utils import get_card_value, \
     find_at_least_five_ones_in_a_row, get_rank_value_val, \
     find_five_cards_in_a_row, find_high_card_index
 from test.utils.test_utils import fill_with_random_cards, generate_straight_cards

@@ -1,9 +1,9 @@
 __author__ = "Eli Aviv"
 __date__ = "04/11/2023"
 
-from src.poker_statistics.model.full_hand.FullHand import FullHand
-from src.poker_statistics.model.full_hand.FullHandRank import FullHandRank
-from src.poker_statistics.model.full_hand.full_hand_utils import find_all_cards_with_same_shape, \
+from poker_statistics.model.full_hand.FullHand import FullHand
+from poker_statistics.model.full_hand.FullHandRank import FullHandRank
+from poker_statistics.model.full_hand.full_hand_utils import find_all_cards_with_same_shape, \
     find_five_cards_in_a_row, find_high_card_index, get_card_value, find_at_least_five_ones_in_a_row
 
 

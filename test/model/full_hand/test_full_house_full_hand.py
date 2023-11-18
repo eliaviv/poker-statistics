@@ -6,9 +6,9 @@ from random import randrange
 import numpy as np
 from poker import Rank
 
-from src.poker_statistics.model.full_hand.FullHandRank import FullHandRank
-from src.poker_statistics.model.full_hand.FullHouseFullHand import FullHouseFullHand
-from src.poker_statistics.model.full_hand.full_hand_utils import get_card_value, \
+from poker_statistics.model.full_hand.FullHandRank import FullHandRank
+from poker_statistics.model.full_hand.FullHouseFullHand import FullHouseFullHand
+from poker_statistics.model.full_hand.full_hand_utils import get_card_value, \
     CARD_VAL_TO_REAL_VALUE
 from test.utils.test_utils import generate_same_rank_cards, fill_with_random_cards
 

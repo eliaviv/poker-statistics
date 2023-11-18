@@ -6,7 +6,7 @@ import random
 import numpy as np
 from poker import Suit, Rank, Card
 
-from src.poker_statistics.model.full_hand.full_hand_utils import get_card_value, find_high_card_index, \
+from poker_statistics.model.full_hand.full_hand_utils import get_card_value, find_high_card_index, \
     get_rank_val_value, get_rank_value_val
 
 
