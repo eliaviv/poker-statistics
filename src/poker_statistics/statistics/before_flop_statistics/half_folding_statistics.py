@@ -1,20 +1,19 @@
 __author__ = "Eli Aviv"
 __date__ = "09/11/2023"
 
-import statistics
 import multiprocessing
+import statistics
 from datetime import datetime
 
 from poker import Hand, Card
 
-from poker_statistics.common.logging import logger
 from poker_statistics.model.Game import Game
 
 NUM_OF_EXPERIMENTS = 1000
 NUM_OF_GAMES_PER_EXPERIMENT = 30
 
 
-def calculate_winning_probability_of_starting_cards(num_of_players):
+def calculate_winning_probability_of_starting_cards_when_half_folds(num_of_players):
     pool = multiprocessing.Pool()
     manager = multiprocessing.Manager()
     hands_probabilities_dict = manager.dict()

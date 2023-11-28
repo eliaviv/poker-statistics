@@ -1,8 +1,3 @@
-__author__ = "Eyal Avny"
-__date__ = "26-Jan-20"
-__copyright__ = "Copyright (C) 2020 IXDen (https://www.ixden.com)"
-
-import importlib.resources as resources
 import logging
 import logging.config
 

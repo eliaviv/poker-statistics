@@ -3,8 +3,10 @@ __date__ = "15/11/2023"
 
 import pandas as pd
 
+from poker_statistics.visualization import visualize
 
-def save_statistics(hands_probabilities, output_path):
+
+def save_statistics(hands_probabilities, num_of_players):
     statistics_matrix = [[""] * 13 for i in range(13)]
 
     hands_probabilities.reverse()
@@ -20,7 +22,8 @@ def save_statistics(hands_probabilities, output_path):
                                  index=pd.Index(['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2']),
                                  columns=pd.Index(['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2']))
 
-    statistics_df.to_csv(output_path)
+    visualize.visualize_in_csv(statistics_df, num_of_players)
+    visualize.visualize_in_html(statistics_df, num_of_players)
 
 
 def _fill_matrix(matrix, i, lines):
