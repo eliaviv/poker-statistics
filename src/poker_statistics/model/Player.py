@@ -18,6 +18,7 @@ class Player:
         self.starting_hand = []
         self.position = None
         self.full_hand = None
+        self.action = None
 
     def deal_starting_hand(self, cards):
         self.starting_hand.extend(cards)

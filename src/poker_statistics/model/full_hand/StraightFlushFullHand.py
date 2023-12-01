@@ -14,12 +14,12 @@ class StraightFlushFullHand(FullHand):
             self.cards = None
             return
 
-        chosen_cards = find_five_cards_in_a_row(cards, 0)
+        chosen_cards = find_five_cards_in_a_row(reduced_cards, 0)
         if chosen_cards is not None:
             self.cards = list(chosen_cards)
             return
 
-        chosen_cards = find_five_cards_in_a_row(cards, 1)
+        chosen_cards = find_five_cards_in_a_row(reduced_cards, 1)
         if chosen_cards is None:
             self.cards = None
             return

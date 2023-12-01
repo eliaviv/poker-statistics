@@ -19,8 +19,8 @@ def save_statistics(hands_probabilities, num_of_players):
     _fill_matrix(statistics_matrix, 0, hands_probabilities[13:])
 
     statistics_df = pd.DataFrame(statistics_matrix,
-                                 index=pd.Index(['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2']),
-                                 columns=pd.Index(['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2']))
+                                 index=pd.Index(['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2']),
+                                 columns=pd.Index(['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2']))
 
     visualize.visualize_in_csv(statistics_df, num_of_players)
     visualize.visualize_in_html(statistics_df, num_of_players)
